@@ -1,6 +1,6 @@
 package Data::Format::Pretty::Perl;
 
-use 5.010;
+use 5.010001;
 use strict;
 use warnings;
 
@@ -10,7 +10,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(format_pretty);
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 sub content_type { "text/x-perl" }
 
@@ -24,6 +24,7 @@ sub format_pretty {
 1;
 # ABSTRACT: Pretty-print data structure as Perl code
 
+__END__
 
 =pod
 
@@ -33,7 +34,7 @@ Data::Format::Pretty::Perl - Pretty-print data structure as Perl code
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -42,11 +43,13 @@ version 0.02
 
 Some example output:
 
-=over 4
+=over
 
 =item * format_pretty({a=>1, b=>2})
 
  { a => 1, b => 2 }
+
+=back
 
 =head1 DESCRIPTION
 
@@ -59,6 +62,8 @@ This module uses L<Data::Dump> to format data as Perl code.
 Return formatted data structure as Perl code. Currently there are no known
 options.
 
+=head2 content_type()
+
 =head1 SEE ALSO
 
 L<Data::Format::Pretty>
@@ -69,14 +74,9 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Steven Haryanto.
+This software is copyright (c) 2013 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__
-
-

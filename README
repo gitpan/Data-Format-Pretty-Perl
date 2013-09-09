@@ -2,7 +2,7 @@ NAME
     Data::Format::Pretty::Perl - Pretty-print data structure as Perl code
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
      use Data::Format::Pretty::Perl qw(format_pretty);
@@ -22,6 +22,7 @@ FUNCTIONS
     Return formatted data structure as Perl code. Currently there are no
     known options.
 
+  content_type()
 SEE ALSO
     Data::Format::Pretty
 
@@ -29,15 +30,8 @@ AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2012 by Steven Haryanto.
+    This software is copyright (c) 2013 by Steven Haryanto.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
-
-POD ERRORS
-    Hey! The above document had some coding errors, which are explained
-    below:
-
-    Around line 51:
-        You forgot a '=back' before '=head1'
 
