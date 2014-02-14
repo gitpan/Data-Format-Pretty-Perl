@@ -4,13 +4,14 @@ use 5.010001;
 use strict;
 use warnings;
 
-use Data::Dump qw(dump);
+use Data::Dump qw();
+use Data::Dump::Color qw();
 
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(format_pretty);
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 sub content_type { "text/x-perl" }
 
@@ -18,7 +19,34 @@ sub format_pretty {
     my ($data, $opts) = @_;
     $opts //= {};
 
-    dump($data);
+    my $interactive = (-t STDOUT);
+    my $color  = $opts->{color} // $ENV{COLOR} // $interactive;
+    my $linum  = $opts->{linum} // $ENV{LINUM} // $interactive;
+
+    my $dump;
+    if ($color) {
+        $dump = Data::Dump::Color::dump($data) . "\n";
+    } else {
+        $dump = Data::Dump::dump($data) . "\n";
+    }
+    if ($linum) {
+        my $lines = 0;
+        $lines++ while $dump =~ /^/mog;
+        my $fmt;
+        my $i = 0;
+        if ($color) {
+            $fmt = "%".length($lines)."d";
+            $dump =~ s/^/
+                "\e[7m" . sprintf($fmt, ++$i) . "\e[0m"
+                    /egm;
+        } else {
+            $fmt = "%".length($lines)."d|";
+            $dump =~ s/^/
+                sprintf($fmt, ++$i)
+                    /egm;
+        }
+    }
+    $dump;
 }
 
 1;
@@ -28,13 +56,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Data::Format::Pretty::Perl - Pretty-print data structure as Perl code
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -53,20 +83,59 @@ Some example output:
 
 =head1 DESCRIPTION
 
-This module uses L<Data::Dump> to format data as Perl code.
+This module uses L<Data::Dump> or L<Data::Dump::Color> to format data as Perl
+code.
 
 =head1 FUNCTIONS
 
 =head2 format_pretty($data, \%opts)
 
-Return formatted data structure as Perl code. Currently there are no known
-options.
+Return formatted data structure as Perl code. Options:
+
+=over 4
+
+=item * color => BOOL
+
+Whether to enable coloring. The default is the enable only when running
+interactively. Currently also enable line numbering.
+
+=item * linum => BOOL (default: 1 or 0 if pretty=0)
+
+Whether to add line numbers.
+
+=back
 
 =head2 content_type()
+
+=head1 ENVIRONMENT
+
+=head2 COLOR => BOOL
+
+Set C<color> option (if unset).
+
+=head2 LINUM => BOOL
+
+Set C<linum> option (if unset).
 
 =head1 SEE ALSO
 
 L<Data::Format::Pretty>
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/Data-Format-Pretty-Perl>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-Data-Format-Pretty-Perl>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=Data-Format-Pretty-Perl>
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 
@@ -74,7 +143,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
