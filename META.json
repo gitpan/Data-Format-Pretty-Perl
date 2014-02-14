@@ -55,7 +55,7 @@
          "web" : "https://github.com/sharyanto/perl-Data-Format-Pretty-Perl"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.010001"

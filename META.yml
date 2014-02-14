@@ -24,7 +24,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Data-Format-Pretty-Perl
   homepage: https://metacpan.org/release/Data-Format-Pretty-Perl
   repository: git://github.com/sharyanto/perl-Data-Format-Pretty-Perl.git
-version: '0.04'
+version: '0.05'
 x_Dist_Zilla:
   perl:
     version: '5.010001'

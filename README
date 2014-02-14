@@ -2,7 +2,7 @@ NAME
     Data::Format::Pretty::Perl - Pretty-print data structure as Perl code
 
 VERSION
-    version 0.04
+    version 0.05
 
 SYNOPSIS
      use Data::Format::Pretty::Perl qw(format_pretty);
@@ -27,7 +27,7 @@ FUNCTIONS
         Whether to enable coloring. The default is the enable only when
         running interactively. Currently also enable line numbering.
 
-    *   linum => BOOL (default: 1 or 0 if pretty=0)
+    *   linum => BOOL (default: 0)
 
         Whether to add line numbers.
 
@@ -39,6 +39,7 @@ ENVIRONMENT
   LINUM => BOOL
     Set "linum" option (if unset).
 
+FAQ
 SEE ALSO
     Data::Format::Pretty
 

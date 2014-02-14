@@ -11,7 +11,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(format_pretty);
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 sub content_type { "text/x-perl" }
 
@@ -21,7 +21,7 @@ sub format_pretty {
 
     my $interactive = (-t STDOUT);
     my $color  = $opts->{color} // $ENV{COLOR} // $interactive;
-    my $linum  = $opts->{linum} // $ENV{LINUM} // $interactive;
+    my $linum  = $opts->{linum} // $ENV{LINUM} // 0;
 
     my $dump;
     if ($color) {
@@ -64,7 +64,7 @@ Data::Format::Pretty::Perl - Pretty-print data structure as Perl code
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -99,7 +99,7 @@ Return formatted data structure as Perl code. Options:
 Whether to enable coloring. The default is the enable only when running
 interactively. Currently also enable line numbering.
 
-=item * linum => BOOL (default: 1 or 0 if pretty=0)
+=item * linum => BOOL (default: 0)
 
 Whether to add line numbers.
 
@@ -116,6 +116,8 @@ Set C<color> option (if unset).
 =head2 LINUM => BOOL
 
 Set C<linum> option (if unset).
+
+=head1 FAQ
 
 =head1 SEE ALSO
 
